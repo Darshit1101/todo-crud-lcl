@@ -6,8 +6,8 @@ import SingleCg from './components/Single/cg'
 const App = () => {
   return (
     <div>
-      {/* <TwoCg /> */}
       {/* <SingleCg /> */}
+      {/* <TwoCg /> */}
       <SingleTodo />
     </div>
   )
