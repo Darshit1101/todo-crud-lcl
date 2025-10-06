@@ -1,12 +1,14 @@
 import React from 'react'
-import Cg from './components/Two/cg'
-import Todo from './components/Single/Todo'
+import TwoCg from './components/Two/cg'
+import SingleTodo from './components/Single/Todo'
+import SingleCg from './components/Single/cg'
 
 const App = () => {
   return (
     <div>
-      {/* <Cg /> */}
-      <Todo />
+      {/* <TwoCg /> */}
+      {/* <SingleCg /> */}
+      <SingleTodo />
     </div>
   )
 }

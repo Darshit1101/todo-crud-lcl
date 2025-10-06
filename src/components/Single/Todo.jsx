@@ -39,7 +39,7 @@ const Todo = () => {
 
   //handle save edit
   const handleSaveEdit = () => {
-    if (editIndex) {
+    if (editIndex !== null) {
       const newTodo = [...todos]
       newTodo[editIndex] = input
       setTodos(newTodo)
