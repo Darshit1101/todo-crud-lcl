@@ -37,7 +37,6 @@ const cg = () => {
         }
 
         if (editingId) {
-            // Update
             setItems(
                 items.map((item) =>
                     item.id === editingId ? { ...item, ...formData } : item
@@ -45,12 +44,10 @@ const cg = () => {
             );
             setEditingId(null);
         } else {
-            // Create
             const newItem = { id: Date.now(), ...formData };
             setItems([...items, newItem]);
         }
 
-        // Reset form
         setFormData({ name: "", description: "" });
     };
 
@@ -71,7 +68,6 @@ const cg = () => {
         <div className="min-h-screen bg-gray-100 p-6">
             <h1 className="text-2xl font-bold mb-4">CRUD with LocalStorage</h1>
 
-            {/* Form */}
             <form
                 onSubmit={handleSubmit}
                 className="bg-white p-4 rounded shadow mb-6 space-y-3"
@@ -95,7 +91,7 @@ const cg = () => {
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white py-2 rounded"
+                    className="cursor-pointer w-full bg-blue-600 text-white py-2 rounded"
                 >
                     {editingId ? "Update Item" : "Add Item"}
                 </button>
@@ -118,13 +114,13 @@ const cg = () => {
                             <div className="flex gap-2">
                                 <button
                                     onClick={() => handleEdit(item)}
-                                    className="bg-yellow-500 text-white px-3 py-1 rounded"
+                                    className="bg-yellow-500 text-white px-3 py-1 rounded cursor-pointer"
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={() => handleDelete(item.id)}
-                                    className="bg-red-500 text-white px-3 py-1 rounded"
+                                    className="bg-red-500 text-white px-3 py-1 rounded cursor-pointer"
                                 >
                                     Delete
                                 </button>
