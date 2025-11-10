@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const cg = () => {
     const [items, setItems] = useState([]);
-    const [formData, setFormData] = useState({ name: "", description: "" });
+    const [formData, setFormData] = useState({ name: "", description: "", category: "", tags: "" });
     const [editingId, setEditingId] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -13,14 +13,14 @@ const cg = () => {
             try {
                 setItems(JSON.parse(savedItems));
             } catch (error) {
-                console.error("Error parsing localStorage data:", error);
+                console.error("Error parsing localStorage data", error);
                 localStorage.removeItem("items");
             }
         }
         setIsLoaded(true);
     }, []);
 
-    // Save items to localStorage whenever items change (but only after initial load)
+    // Save items to localStorage whenever items change
     useEffect(() => {
         if (isLoaded) {
             localStorage.setItem("items", JSON.stringify(items));
@@ -31,7 +31,7 @@ const cg = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!formData.name.trim() || !formData.description.trim()) {
+        if (!formData.name.trim() || !formData.description.trim() || !formData.category.trim() || !formData.tags.trim()) {
             alert("Please fill all fields");
             return;
         }
@@ -48,12 +48,12 @@ const cg = () => {
             setItems([...items, newItem]);
         }
 
-        setFormData({ name: "", description: "" });
+        setFormData({ name: "", description: "", category: "", tags: "" });
     };
 
     // Edit item
     const handleEdit = (item) => {
-        setFormData({ name: item.name, description: item.description });
+        setFormData({ name: item.name, description: item.description, category: item.category, tags: item.tags });
         setEditingId(item.id);
     };
 
@@ -88,6 +88,24 @@ const cg = () => {
                     }
                     className="w-full border px-3 py-2 rounded"
                 />
+                <input
+                    type="text"
+                    placeholder="Category"
+                    value={formData.category}
+                    onChange={(e) =>
+                        setFormData({ ...formData, category: e.target.value })
+                    }
+                    className="w-full border px-3 py-2 rounded"
+                />
+                <input
+                    type="text"
+                    placeholder="Tags (e.g., urgent, work, personal)"
+                    value={formData.tags}
+                    onChange={(e) =>
+                        setFormData({ ...formData, tags: e.target.value })
+                    }
+                    className="w-full border px-3 py-2 rounded"
+                />
 
                 <button
                     type="submit"
@@ -110,6 +128,14 @@ const cg = () => {
                             <div>
                                 <h3 className="font-semibold">{item.name}</h3>
                                 <p className="text-sm text-gray-600">{item.description}</p>
+                                <div className="flex gap-4 mt-1">
+                                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                                        {item.category}
+                                    </span>
+                                    <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
+                                        {item.tags}
+                                    </span>
+                                </div>
                             </div>
                             <div className="flex gap-2">
                                 <button
